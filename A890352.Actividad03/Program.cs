@@ -123,7 +123,14 @@ namespace ConsoleApp3
                                     {
                                         if (Int32.TryParse(Console.ReadLine(), System.Globalization.NumberStyles.None, null, out cantidadCuentasDebe))
                                         {
-                                            parse3 = true;
+                                            if (cantidadCuentasDebe == 0)
+                                            {
+                                                Funciones.MostrarError("Lo ingresado no es un numero valido. Ingrese nuevamente.");
+                                            }
+                                            else
+                                            {
+                                                parse3 = true;
+                                            }
                                         }
                                         else
                                         {
@@ -199,7 +206,14 @@ namespace ConsoleApp3
                                     {
                                         if (Int32.TryParse(Console.ReadLine(), System.Globalization.NumberStyles.None, null, out cantidadCuentasHaber))
                                         {
-                                            parse6 = true;
+                                            if (cantidadCuentasHaber == 0)
+                                            {
+                                                Funciones.MostrarError("Lo ingresado no es un numero valido. Ingrese nuevamente.");
+                                            }
+                                            else
+                                            {
+                                                parse6 = true;
+                                            }
                                         }
                                         else
                                         {
