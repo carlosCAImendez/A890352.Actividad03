@@ -68,17 +68,18 @@ namespace ConsoleApp3
                                 {
                                     if (cantidadAsientos == 0)
                                     {
-                                        Console.WriteLine("Lo ingresado no es un numero valido. Ingrese nuevamente.");
+                                        Funciones.MostrarError("Lo ingresado no es un numero valido. Ingrese nuevamente.");
                                     }
                                     else
                                     {
+                                    
                                         parse1 = true;
                                     }
 
                                 }
                                 else
                                 {
-                                    Console.WriteLine("Lo ingresado no es un numero valido. Ingrese nuevamente.");
+                                    Funciones.MostrarError("Lo ingresado no es un numero valido. Ingrese nuevamente.");
                                 }
                             } while (parse1 == false);
 
@@ -99,7 +100,7 @@ namespace ConsoleApp3
                                         {
                                             if (fecha > DateTime.Today)
                                             {
-                                                Console.WriteLine("La fecha del asiento no puede ser futura. Ingrese nuevamente.");
+                                                Funciones.MostrarError("La fecha del asiento no puede ser futura. Ingrese nuevamente.");
 
                                             }
                                             else
@@ -109,7 +110,7 @@ namespace ConsoleApp3
                                         }
                                         else
                                         {
-                                            Console.WriteLine("Lo ingresado no es una fecha valida. Ingrese nuevamente.");
+                                            Funciones.MostrarError("Lo ingresado no es una fecha valida. Ingrese nuevamente.");
                                         }
 
                                     } while (parse2 == false);
@@ -126,7 +127,7 @@ namespace ConsoleApp3
                                         }
                                         else
                                         {
-                                            Console.WriteLine("Lo ingresado no es un numero valido. Ingrese nuevamente.");
+                                            Funciones.MostrarError("Lo ingresado no es un numero valido. Ingrese nuevamente.");
 
                                         }
 
@@ -147,7 +148,7 @@ namespace ConsoleApp3
                                                 }
                                                 else
                                                 {
-                                                    Console.WriteLine("Lo ingresado no es un numero valido. Ingrese nuevamente.");
+                                                    Funciones.MostrarError("Lo ingresado no es un numero valido. Ingrese nuevamente.");
                                                 }
 
                                             } while (parse4 == false);
@@ -163,7 +164,7 @@ namespace ConsoleApp3
                                             }
                                             else
                                             {
-                                                Console.WriteLine("No existe la cuenta en el Plan de Cuentas. Intente nuevamente.");
+                                                Funciones.MostrarError("No existe la cuenta en el Plan de Cuentas. Intente nuevamente.");
                                             }
                                         }
                                         while (paso1 == false);
@@ -178,7 +179,7 @@ namespace ConsoleApp3
                                             }
                                             else
                                             {
-                                                Console.WriteLine("Lo ingresado no es un numero valido. Ingrese nuevamente.");
+                                                Funciones.MostrarError("Lo ingresado no es un numero valido. Ingrese nuevamente.");
 
                                             }
                                         } while (parse5 == false);
@@ -202,7 +203,7 @@ namespace ConsoleApp3
                                         }
                                         else
                                         {
-                                            Console.WriteLine("Lo ingresado no es un numero valido. Ingrese nuevamente.");
+                                            Funciones.MostrarError("Lo ingresado no es un numero valido. Ingrese nuevamente.");
 
                                         }
 
@@ -222,7 +223,7 @@ namespace ConsoleApp3
                                                 }
                                                 else
                                                 {
-                                                    Console.WriteLine("Lo ingresado no es un numero valido. Ingrese nuevamente.");
+                                                    Funciones.MostrarError("Lo ingresado no es un numero valido. Ingrese nuevamente.");
                                                 }
 
                                             } while (parse7 == false);
@@ -238,7 +239,7 @@ namespace ConsoleApp3
                                             }
                                             else
                                             {
-                                                Console.WriteLine("No existe la cuenta en el Plan de Cuentas. Intente nuevamente.");
+                                                Funciones.MostrarError("No existe la cuenta en el Plan de Cuentas. Intente nuevamente.");
                                             }
                                         }
                                         while (paso2 == false);
@@ -253,7 +254,7 @@ namespace ConsoleApp3
                                             }
                                             else
                                             {
-                                                Console.WriteLine("Lo ingresado no es un numero valido. Ingrese nuevamente.");
+                                                Funciones.MostrarError("Lo ingresado no es un numero valido. Ingrese nuevamente.");
 
                                             }
                                         } while (parse8 == false);
@@ -270,7 +271,8 @@ namespace ConsoleApp3
                                     }
                                     else
                                     {
-                                        Console.WriteLine("El debe no es igual al haber. Por favor, reingrese los asientos correctamente.");
+                                        
+                                        Funciones.MostrarError("El debe no es igual al haber. Por favor, reingrese los asientos correctamente.");
                                         montoDebe = 0;
                                         montoHaber = 0;
                                         debeIncremental = 0;
@@ -436,7 +438,10 @@ namespace ConsoleApp3
 
                             break;
                         default:
-                            Console.WriteLine("Lo ingresado no es una opcion valida");
+
+                            Funciones.MostrarError("Lo ingresado no es una opcion valida.");
+
+
                             break;
 
                     }

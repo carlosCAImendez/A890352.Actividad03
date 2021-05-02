@@ -19,7 +19,7 @@ namespace ConsoleApp3
             FileInfo elPlan = new FileInfo(direccion);
             if (!elPlan.Exists)
             {
-                Console.WriteLine("No se encuentra el plan de cuentas");
+                Funciones.MostrarError("No se encuentra el plan de cuentas");
                 Console.ReadLine();
                 Environment.Exit(0);
             }
@@ -29,7 +29,7 @@ namespace ConsoleApp3
                 StreamReader abridor = elPlan.OpenText();
                 if (elPlan.Length == 0)
                 {
-                    Console.WriteLine("El archivo de plan de cuentas esta vacio!.");
+                    Funciones.MostrarError("El archivo de plan de cuentas esta vacio!.");
                     Console.ReadLine();
                     Environment.Exit(0);
                     return null;
@@ -95,7 +95,7 @@ namespace ConsoleApp3
             }   
             catch
             {
-                Console.WriteLine("No hay asientos que modificar.");
+                Funciones.MostrarError("No hay asientos para mostrar.");
                 Console.ReadLine();
                 return 0;
             }
@@ -113,7 +113,7 @@ namespace ConsoleApp3
                 StreamReader abridor = elPlan.OpenText();
                 if (elPlan.Length == 0)
                 {
-                    Console.WriteLine("No hay asientos para mostrar.");
+                    Funciones.MostrarError("No hay asientos para mostrar.");
                     Console.ReadLine();
                     return null;
                 }
@@ -194,7 +194,7 @@ namespace ConsoleApp3
             }
             catch
             {
-                Console.WriteLine("No se guardaron los asientos.");
+                Funciones.MostrarError("No se pudieron guardar los asientos.");
                 return false;
             }
         }
@@ -218,6 +218,14 @@ namespace ConsoleApp3
             Console.WriteLine("1 - Ingresar asientos"); // Codeado.
             Console.WriteLine("2 - Ver asientos existentes");
             Console.WriteLine("3 - Salir");
+        }
+
+        public static string MostrarError(string mensaje)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(mensaje);
+            Console.ResetColor();
+            return null;
         }
 
     }
