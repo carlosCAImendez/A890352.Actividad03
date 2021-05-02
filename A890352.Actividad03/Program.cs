@@ -31,6 +31,7 @@ namespace ConsoleApp3
             Double incrementalCuentasDebe = 0;
 
             //Bools de parses
+            bool parseNroAsiento = false;
             bool parse1 = false;
             bool parse2 = false;
             bool parse3 = false;
@@ -44,6 +45,8 @@ namespace ConsoleApp3
             bool paso1 = false;
             bool paso2 = false;
             bool paso3 = false;
+
+            bool hayAsientos = false;
             #endregion
 
       
@@ -83,16 +86,52 @@ namespace ConsoleApp3
                                 }
                             } while (parse1 == false);
 
-                            Funciones.ComprobarTxt();
+                            if (Funciones.ComprobarTxt()  == false)
+                            {
+                                hayAsientos = true;
+                            }
+                            else
+                            {
+                                hayAsientos = false;
+                            }
 
-
+                            int nrodeAsiento = 0;
                             do
                             {
                                 // Iniciamos recorrido.
                                 for (int i = 0; i < cantidadAsientos; i++)
                                 {
+                                    if (hayAsientos == true)
+                                    {
+                                        Console.WriteLine("Ingrese el nro de asiento");
+                                        do
+                                        {
+                                            if (Int32.TryParse(Console.ReadLine(), System.Globalization.NumberStyles.None, null, out nrodeAsiento))
+                                            {
+                                                if (nrodeAsiento == 0)
+                                                {
+                                                    Funciones.MostrarError("Lo ingresado no es un numero valido. Ingrese nuevamente.");
+                                                }
+                                                else
+                                                {
+                                                    parseNroAsiento = true;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Funciones.MostrarError("Lo ingresado no es un numero valido. Ingrese nuevamente.");
 
-                                    Console.WriteLine("-----------Asiento {0}-----------", (i + 1));
+                                            }
+
+                                        } while (parseNroAsiento == false);
+                                        Console.WriteLine("-----------Asiento {0}-----------", (nrodeAsiento));
+                                        parseNroAsiento = false;
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("-----------Asiento {0}-----------", (i + 1));
+                                    }
+                                  
                                     Console.WriteLine("Ingrese la fecha del asiento en el siguiente formato: DD/MM/AAAA");
                                     do
                                     {
@@ -193,7 +232,14 @@ namespace ConsoleApp3
                                         parse5 = false;
                                         debeIncremental += montoDebe;
                                         incrementalCuentasDebe = incrementalCuentasDebe + cantidadCuentasDebe;
-                                        Asiento.Add(new Asientos() { NroAsiento = (i + 1), Fecha = fecha.ToString("dd/MM/yyyy"), CodigoCuenta = nroCuenta, Debe = montoDebe, Haber = 0 });
+                                        if (hayAsientos == true)
+                                        {
+                                            Asiento.Add(new Asientos() { NroAsiento = nrodeAsiento, Fecha = fecha.ToString("dd/MM/yyyy"), CodigoCuenta = nroCuenta, Debe = montoDebe, Haber = 0 });
+                                        }
+                                        else
+                                        {
+                                            Asiento.Add(new Asientos() { NroAsiento = (i + 1), Fecha = fecha.ToString("dd/MM/yyyy"), CodigoCuenta = nroCuenta, Debe = montoDebe, Haber = 0 });
+                                        }
 
                                     }
                                     // Fin ciclo DEBE
@@ -275,7 +321,14 @@ namespace ConsoleApp3
                                         parse8 = false;
                                         haberIncremental += montoHaber;
                                         incrementalCuentasHaber += cantidadCuentasHaber;
-                                        Asiento.Add(new Asientos() { NroAsiento = (i + 1), Fecha = fecha.ToString("dd/MM/yyyy"), CodigoCuenta = nroCuenta, Debe = 0, Haber = montoHaber });
+                                        if (hayAsientos == true)
+                                        {
+                                            Asiento.Add(new Asientos() { NroAsiento = nrodeAsiento, Fecha = fecha.ToString("dd/MM/yyyy"), CodigoCuenta = nroCuenta, Debe = 0, Haber = montoHaber });
+                                        }
+                                        else
+                                        {
+                                            Asiento.Add(new Asientos() { NroAsiento = (i + 1), Fecha = fecha.ToString("dd/MM/yyyy"), CodigoCuenta = nroCuenta, Debe = 0, Haber = montoHaber });
+                                        }
                                     }
 
    
@@ -294,8 +347,9 @@ namespace ConsoleApp3
                                         haberIncremental = 0;
                                         incrementalCuentasDebe = 0;
                                         incrementalCuentasHaber = 0;
+                                        nrodeAsiento = 0;
                                         Asiento.Clear();
-
+                                       
                                         paso3 = false;
                                         paso1 = false;
                                         paso2 = false;
@@ -305,6 +359,7 @@ namespace ConsoleApp3
                                         parse6 = false;
                                         parse7 = false;
                                         parse8 = false;
+                                        parseNroAsiento = false;
 
                                         break;
                                     }
@@ -320,60 +375,10 @@ namespace ConsoleApp3
                             {
                                 Funciones.ActualizarDiario(item.ToString());
                             }
-                            // Mostramos los asientos de una manera bonita.
-
-                            Console.WriteLine("Asientos ingresados: " + Environment.NewLine);
-                            Console.WriteLine(String.Format("|{0,-5}|{1}|{2,-14}|{3,-5}|{4,-5}|", "Nro  ", Funciones.centrarTextoParaAsientos("Cuentas", 68), "Tipo", "Debe", "Haber"));
-
-                            Console.WriteLine(Environment.NewLine);
-
-                            for (int i = 0; i < cantidadAsientos; i++)
-                            {
-
-                                string fechadeasiento = Asiento.FirstOrDefault(x => x.NroAsiento == (i + 1)).Fecha;
-                                string tipoCuenta = "";
-                                Console.WriteLine("{0} ---------------------------------{1}-------------------------------", fechadeasiento, (i + 1));
-                                Console.WriteLine(Environment.NewLine);
-
-                                foreach (var item in Asiento.Where(x => (x.NroAsiento == (i + 1))))
-                                {
-
-                                    PlanCuentas cuentanombre = PlanDeCuentas.Find(x => (x.Codigo == item.CodigoCuenta));
-                                    if (item.Debe == 0)
-                                    {
-                                        if (cuentanombre.Tipo == "Activo")
-                                        {
-                                            tipoCuenta = "Activo-";
-                                        }
-                                        else
-                                        {
-                                            tipoCuenta = cuentanombre.Tipo;
-                                        }
-                                        Console.WriteLine(String.Format("|{0,-5}|{1,-68}|{2,-14}|{3,-5}|{4,-5}|", item.CodigoCuenta, "      a  " + cuentanombre.Nombre, tipoCuenta, item.Debe, item.Haber));
-                                        tipoCuenta = "";
-                                    }
-                                    else
-                                    {
-                                        if (cuentanombre.Tipo == "Pasivo")
-                                        {
-                                            tipoCuenta = "Pasivo-";
-                                        }
-                                        else if (cuentanombre.Tipo == "PatrimonioNeto")
-                                        {
-                                            tipoCuenta = "PatrimonioNeto-";
-                                        }
-                                        else
-                                        {
-                                            tipoCuenta = cuentanombre.Tipo;
-                                        }
-                                        Console.WriteLine(String.Format("|{0,-5}|{1,-68}|{2,-14}|{3,-5}|{4,-5}|", item.CodigoCuenta, cuentanombre.Nombre, tipoCuenta, item.Debe, item.Haber));
-                                        tipoCuenta = "";
-
-                                    }
-
-
-                                }
-                            }
+                    
+                            hayAsientos = false;
+                            Asiento.Clear();
+                            Console.WriteLine("Asientos agregados correctamente.");
                             Console.ReadLine();
                             Console.Clear();
                             break;

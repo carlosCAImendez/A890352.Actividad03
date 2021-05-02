@@ -151,7 +151,7 @@ namespace ConsoleApp3
 
 
         } 
-        public static void ComprobarTxt()
+        public static bool ComprobarTxt()
         {
             string direccion = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "Diario.txt");
             FileInfo losAsientos = new FileInfo(direccion);
@@ -161,16 +161,17 @@ namespace ConsoleApp3
                 try
                 {
                     File.Create(direccion).Dispose();
+                    return true;
                 }
                 catch
                 {
-
+                    return false;
                 }
 
             }
             else
             {
-                // No hacemos nada.
+                return false;
             }
 
         }
