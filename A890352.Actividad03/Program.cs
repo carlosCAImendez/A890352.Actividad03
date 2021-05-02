@@ -278,8 +278,7 @@ namespace ConsoleApp3
                                         Asiento.Add(new Asientos() { NroAsiento = (i + 1), Fecha = fecha.ToString("dd/MM/yyyy"), CodigoCuenta = nroCuenta, Debe = 0, Haber = montoHaber });
                                     }
 
-                                    Console.WriteLine(debeIncremental);
-                                    Console.WriteLine(haberIncremental);
+   
                                     // Comprobamos que DEBE = HABER 
                                     if (debeIncremental == haberIncremental)
                                     {
